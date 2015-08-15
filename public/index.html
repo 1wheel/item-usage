@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style>
+
+body {
+  font: 10px sans-serif;
+}
+
+.axis path,
+.axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+.dot {
+  stroke: #000;
+}
+
+div.tooltip {
+  top: -1000px;
+  position: absolute;
+  padding: 10px;
+  background: rgba(255, 255, 255, .90);
+  border: 1px solid lightgray;
+  pointer-events: none;
+}
+.tooltip-hidden{
+  opacity: 0;
+}
+
+
+</style>
+<body>
+
+<div class='tooltip'></div>
+
+<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
+<script src='http://bl.ocks.org/1wheel/raw/1b6758978dc2d52d3a37/d3-jetpack.js'></script>
+<script src='http://bl.ocks.org/1wheel/raw/1b6758978dc2d52d3a37/d3-starterkit.js'></script>
+<script>
+
+
+d3.json('matches1.json', function(err, res){
+  data = res
+})
+
+// d3.tsv("data.tsv", function(error, data) {
+//   var c = d3.conventions()
+//   c.x.domain(d3.extent(data, ƒ('sepalWidth')))
+//   c.y.domain(d3.extent(data, ƒ('sepalLength')))
+
+//   c.drawAxis()
+
+//   c.svg.dataAppend(data, "circle.dot")
+//       .attr("r", 3.5)
+//       .attr("cx", ƒ('sepalWidth', c.x))
+//       .attr("cy", ƒ('sepalLength', c.y))
+//       .style("fill", ƒ('species', c.color))
+//       .call(d3.attachTooltip)
+// })
+
+</script>
