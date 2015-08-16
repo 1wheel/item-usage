@@ -1,63 +1,55 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
-<style>
 
-body {
-  font: 10px sans-serif;
-}
-
-.axis path,
-.axis line {
-  fill: none;
-  stroke: #000;
-  shape-rendering: crispEdges;
-}
-
-.dot {
-  stroke: #000;
-}
-
-div.tooltip {
-  top: -1000px;
-  position: absolute;
-  padding: 10px;
-  background: rgba(255, 255, 255, .90);
-  border: 1px solid lightgray;
-  pointer-events: none;
-}
-.tooltip-hidden{
-  opacity: 0;
-}
+<link rel="stylesheet" type="text/css" href="style.css" />
 
 
-</style>
 <body>
+
+
+<div id="charts">
+  <div id="hour-chart" class="chart">
+    <div class="title">Time of Day</div>
+  </div>
+  <div id="delay-chart" class="chart">
+    <div class="title">Arrival Delay (min.)</div>
+  </div>
+  <div id="distance-chart" class="chart">
+    <div class="title">Distance (mi.)</div>
+  </div>
+  <div id="date-chart" class="chart">
+    <div class="title">Date</div>
+  </div>
+</div>
+
+<aside id="totals"><span id="active">-</span> of <span id="total">-</span> flights selected.</aside>
+
+<div id="lists">
+  <div id="flight-list" class="list"></div>
+</div>
+
+<footer>
+  <span style="float:right;">
+    Released under the <a href="http://www.apache.org/licenses/LICENSE-2.0.html">Apache License 2.0</a>.
+  </span>
+  Copyright 2012 <a href="http://squareup.com">Square, Inc.</a>
+</footer>
+
+
+
+
+
+</body>
 
 <div class='tooltip'></div>
 
-<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/3.5.5/d3.min.js"></script>
-<script src='http://bl.ocks.org/1wheel/raw/1b6758978dc2d52d3a37/d3-jetpack.js'></script>
-<script src='http://bl.ocks.org/1wheel/raw/1b6758978dc2d52d3a37/d3-starterkit.js'></script>
-<script>
+
+<script src='lib/d3.js'></script>
+<script src='lib/crossfilter.js'></script>
+<script src='lib/d3-jetpack.js'></script>
+<script src='lib/starterkit.js'></script>
+<script src='lib/lodash.js'></script>
 
 
-d3.json('matches1.json', function(err, res){
-  data = res
-})
-
-// d3.tsv("data.tsv", function(error, data) {
-//   var c = d3.conventions()
-//   c.x.domain(d3.extent(data, ƒ('sepalWidth')))
-//   c.y.domain(d3.extent(data, ƒ('sepalLength')))
-
-//   c.drawAxis()
-
-//   c.svg.dataAppend(data, "circle.dot")
-//       .attr("r", 3.5)
-//       .attr("cx", ƒ('sepalWidth', c.x))
-//       .attr("cy", ƒ('sepalLength', c.y))
-//       .style("fill", ƒ('species', c.color))
-//       .call(d3.attachTooltip)
-// })
-
-</script>
+<script src='js/main.js'></script>
+<script src='js/barchart.js'></script>
