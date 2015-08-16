@@ -1,0 +1,23 @@
+{
+  "name": "item-usage",
+  "version": "1.0.0",
+  "description": "Given two data sets of match IDs, one before the AP Item changes and another one after, create a piece of software to demonstrate changes in AP Item usage. You can download the data set here.",
+  "main": "index.js",
+  "dependencies": {
+    "indian-ocean": "^0.4.0"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/1wheel/item-usage.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/1wheel/item-usage/issues"
+  },
+  "homepage": "https://github.com/1wheel/item-usage"
+}

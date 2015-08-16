@@ -1,2 +1,5 @@
 config.json
 public/matches1.json
+node_modules
+raw-matches
+raw/*.json
