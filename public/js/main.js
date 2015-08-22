@@ -1,5 +1,11 @@
-d3.csv("data/players.csv", function(err, res) {
-  players = res
+queue()
+.defer(d3.csv,  'data/players.csv')
+.defer(d3.json, 'data/champions.json')
+.defer(d3.json, 'data/items.json')
+.awaitAll(function(err, res) {
+  players = res[0]
+  champs  = res[1].data
+  items   = res[2]
 
   // Various formatters.
   var formatNumber = d3.format(",d"),
