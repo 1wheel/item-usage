@@ -8,9 +8,10 @@ var q = queue(2000)
 
 var config = io.readDataSync('config.json')
 var regions = 'BR-EUNE-EUW-KR-LAN-LAS-NA-OCE-RU-TR'.split('-')
+var regions = ['NA']
 var count = 0
 
-var prevMatchIds = io.readdirIncludeSync('raw-matches/', 'json')
+var prevMatchIds = io.readdirIncludeSync('raw-matches-timeline/', 'json')
 var isDownloadedMatch = d3.nest()
     .key(function(d){ return _.last(d.split('/')).replace('.json', '') })
     .map(prevMatchIds)
@@ -30,13 +31,17 @@ var apiURL = 'https://na.api.pvp.net/api/lol/'
 
 function downloadMatch(id, region, cb){
   var url = 'https://' + region.toLowerCase() + '.api.pvp.net/api/lol/' 
-          + region.toLowerCase() + '/v2.2/match/' + id + '?api_key=' + config.key
+          + region.toLowerCase() + '/v2.2/match/' + id + '?includeTimeline=true&api_key=' + config.key
 
   request(url, function (err, res, body) {
     cb()
     if (!err && res.statusCode == 200) {
       console.log('count: ', count++, region, id)
-      io.writeData('raw-matches/' + id + '.json', body, noop)
+      try{
+        io.writeData('raw-matches-timeline/' + id + '.json', JSON.parse(body), noop)
+      } catch (e){
+        console.log(e, body)
+      }
     } else{
       console.log(err ? err : res.statusCode, url)
     }
