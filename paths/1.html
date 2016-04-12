@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+
+<link rel="stylesheet" type="text/css" href="style.css" />
+
+
+<body></body>
+
+<div class='tooltip'></div>
+
+
+<script src='lib/d3.js'></script>
+<script src='lib/crossfilter.js'></script>
+<script src='lib/d3-jetpack.js'></script>
+<script src='lib/starterkit.js'></script>
+<script src='lib/lodash.js'></script>
+<script src='lib/queue.js'></script>
+
+
+<script>
+queue()
+.defer(d3.csv,  'data/paths.csv')
+.defer(d3.json, 'data/champions.json')
+.defer(d3.json, 'data/items.json')
+.await(function(err, positions) {
+  // positions = res[0]
+  // champs  = res[1].data
+  // items   = res[2]
+
+
+  var curPositions = positions//.slice(0, 100000)
+
+
+	var width = height = 512
+
+	var canvas = d3.select("body").append("canvas")
+			.attr({width: width, height: height})
+
+	var ctx = canvas.node().getContext("2d");
+
+	var color = d3.scale.category10()
+	var x = d3.scale.linear().domain([-120, 14870]).range([0, 512])
+	var y = d3.scale.linear().domain([-120, 14980]).range([512, 0])
+
+	// curPositions.forEach(function(d){
+	// 	d.time = +d.time
+	// })
+
+	d3.timer(function(t){
+		t = t*10000
+		console.log(t)
+
+    ctx.fillStyle = 'rgba(255, 255, 255, 0.1)';
+    ctx.fillRect(0, 0, width, height);
+
+		var activePositions = curPositions.slice(0, 500)
+		curPositions = curPositions.slice(500, curPositions.length)
+
+		activePositions = d3.nest()
+				.key(ƒ('player'))
+				.entries(activePositions)
+				.forEach(function(d, i){
+					ctx.fillStyle = color(d.key)
+					d.values.forEach(function(d){
+						ctx.beginPath()
+						ctx.arc(x(d.x),y(d.y),3,0,2*Math.PI)
+						ctx.closePath()
+						ctx.fill()
+					})
+				})
+
+				
+	})
+
+
+	function dist(a, b){ return Math.sqrt(Math.pow(a.x - b.x, 2) + Math.pow(a.y - b.y, 2)) }
+	function toPath(d){ return [x(d.x), y(d.y)] }
+
+});
+
+</script>
